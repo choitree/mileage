@@ -23,8 +23,7 @@ public class User {
 
     private String loginId;
     private String name;
-    private String password;
-    private String email;
+
 //    private int point;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
