@@ -48,14 +48,14 @@ public class Review {
     private List<Photo> photos = new ArrayList<>();
 
     public static Review createReview(ReviewRequestDTO reviewRequestDTO,
-                                      User user, Place place, Event event, LocalDateTime createdAt) {
+                                      User user, Place place, Event event) {
         return Review.builder()
                 .reviewId(reviewRequestDTO.getReviewId())
                 .content(reviewRequestDTO.getContent())
                 .user(user)
                 .place(place)
                 .event(event)
-                .createdAt(createdAt)
+                .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
     }
