@@ -25,4 +25,8 @@ public class Photo {
     @JoinColumn(name = "review_id", referencedColumnName = "id")
     private Review review;
 
+    public Photo(String fileName, Review review) {
+        this.fileName = fileName;
+        this.review = review;
+    }
 }
