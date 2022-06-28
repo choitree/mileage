@@ -69,4 +69,14 @@ public class PointLogService {
         pointLogRepository.save(pointLog);
         userRepository.save(user);
     }
+
+    @Transactional
+    public void softDeletePointLog(Review review, User user) {
+        int pointsSum = pointLogRepository.pointSumByReview(review);
+        pointLogRepository.updatePointLogReviewToNull(review);
+        PointLog pointLog = new PointLog(LocalDateTime.now(), "리뷰삭제", -pointsSum, user, null);
+        user.updateUserPoint(user.getPoint() - pointsSum);
+        pointLogRepository.save(pointLog);
+        userRepository.save(user);
+    }
 }

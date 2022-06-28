@@ -74,4 +74,16 @@ public class ReviewService {
         pointLogService.saveUpdateReviewPointLog(user, review, isOriginContentExist, originPhotoCount, reviewUpdateRequestDTO.getPhotoIds().size(), "리뷰수정");
     }
 
+    public void deleteReview(UUID reviewId, String action) {
+        if (!action.equals(Action.DELETE.name())) {
+            throw new WrongActionException("리뷰 삭제의 경우, DELETE action입니다.");
+        }
+        Review review = reviewRepository.findByReviewId(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException("삭제하려는 리뷰가 존재하지 않습니다."));
+        User user = userService.findByUserId(review.getUser().getUserId());
+
+        photoService.deleteAllPhotoByReview(review);
+        pointLogService.softDeletePointLog(review, user);
+        reviewRepository.delete(review);
+    }
 }
