@@ -69,4 +69,9 @@ public class Review {
                 .build();
     }
 
+    public void updateReview(ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+        this.content = reviewUpdateRequestDTO.getContent();
+        this.modifiedAt = LocalDateTime.now();
+    }
+
 }
