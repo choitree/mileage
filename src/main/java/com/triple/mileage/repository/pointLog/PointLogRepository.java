@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PointLogRepository extends JpaRepository<PointLog, Long> {
+public interface PointLogRepository extends JpaRepository<PointLog, Long>, PointLogRepositoryCustom {
 }
