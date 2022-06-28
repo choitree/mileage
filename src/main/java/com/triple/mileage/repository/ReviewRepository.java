@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    public Optional<Review> findByUserAndPlace(User user, Place place);
+    Optional<Review> findByUserAndPlace(User user, Place place);
 
-    public List<Review> findAllByPlace(Place place);
+    List<Review> findAllByPlace(Place place);
+
+    Optional<Review> findByReviewId(UUID reviewId);
 }

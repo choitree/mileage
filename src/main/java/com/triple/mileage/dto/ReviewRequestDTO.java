@@ -1,13 +1,15 @@
 package com.triple.mileage.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,13 +17,13 @@ public class ReviewRequestDTO {
 
     private String type;
     private String action;
-    private String reviewId;
+    private UUID reviewId;
     private String content;
 
     @JsonProperty("attachedPhotoIds")
-    private List<String> photoIds;
+    private List<UUID> photoIds;
 
-    private String userId;
-    private String placeId;
+    private UUID userId;
+    private UUID placeId;
 
 }
