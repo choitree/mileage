@@ -23,6 +23,6 @@ public class Event {
     private String eventType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", referencedColumnName = "id")
+    @JoinColumn(name = "review_id", referencedColumnName = "review_id")
     private Review review;
 }

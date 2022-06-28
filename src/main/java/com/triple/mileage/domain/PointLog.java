@@ -25,11 +25,11 @@ public class PointLog {
     private int point;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", referencedColumnName = "id")
+    @JoinColumn(name = "review_id", referencedColumnName = "review_id")
     private Review review;
 
     public PointLog(LocalDateTime createdAt, String info, int point, User user, Review review) {
