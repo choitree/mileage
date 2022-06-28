@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum EventType  {
-    REVIEW( "리뷰");
+    REVIEW( "REVIEW");
 
     private final String type;
 
