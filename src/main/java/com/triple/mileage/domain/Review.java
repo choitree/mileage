@@ -1,6 +1,7 @@
 package com.triple.mileage.domain;
 
 
+import com.triple.mileage.dto.ReviewRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "review")
+@Table(name = "review", uniqueConstraints = {@UniqueConstraint(name = "uniqueUserAndPlace", columnNames = {"user_id", "place_id"})})
 public class Review {
 
     @Id
@@ -45,5 +46,18 @@ public class Review {
 
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
     private List<Photo> photos = new ArrayList<>();
+
+    public static Review createReview(ReviewRequestDTO reviewRequestDTO,
+                                      User user, Place place, Event event, LocalDateTime createdAt) {
+        return Review.builder()
+                .reviewId(reviewRequestDTO.getReviewId())
+                .content(reviewRequestDTO.getContent())
+                .user(user)
+                .place(place)
+                .event(event)
+                .createdAt(createdAt)
+                .modifiedAt(LocalDateTime.now())
+                .build();
+    }
 
 }
