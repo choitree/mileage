@@ -29,5 +29,4 @@ public class Place {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
-
 }

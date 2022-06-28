@@ -22,5 +22,4 @@ public class ReviewUpdateRequestDTO {
 
     @JsonProperty("attachedPhotoIds")
     private List<UUID> photoIds;
-
 }

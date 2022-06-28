@@ -73,5 +73,4 @@ public class Review {
         this.content = reviewUpdateRequestDTO.getContent();
         this.modifiedAt = LocalDateTime.now();
     }
-
 }

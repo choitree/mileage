@@ -17,6 +17,5 @@ public class EventService {
     public Event findByEventType(String eventType) {
         return eventRepository.findByEventType(eventType)
                 .orElseThrow(() -> new EventNotFoundException("리뷰라는 이벤트가 존재하지 않습니다."));
-
     }
 }

@@ -25,5 +25,4 @@ public class ReviewRequestDTO {
 
     private UUID userId;
     private UUID placeId;
-
 }
