@@ -3,7 +3,7 @@ package com.triple.mileage.service;
 import com.triple.mileage.domain.*;
 import com.triple.mileage.dto.ReviewRequestDTO;
 import com.triple.mileage.dto.ReviewUpdateRequestDTO;
-import com.triple.mileage.exception.IllegalReviewUpdateException;
+import com.triple.mileage.exception.IllegalReviewException;
 import com.triple.mileage.exception.ReviewNotFoundException;
 import com.triple.mileage.exception.WrongActionException;
 import com.triple.mileage.repository.ReviewRepository;
@@ -44,7 +44,9 @@ public class ReviewService {
 
         int samePlaceReviewCount = reviewRepository.findAllByPlace(place).size();
         Review review = Review.createReview(reviewRequestDTO, user, place, event);
-
+        if (reviewRequestDTO.getPhotoIds().size() == 0 && reviewRequestDTO.getContent().isBlank()) {
+            throw new IllegalReviewException("내용과 사진 모두 없는 상태로 리뷰를 작성할 수 없습니다.");
+        }
         reviewRepository.save(review);
 
         photoService.convertAndSaveAllPhotosByReview(reviewRequestDTO.getPhotoIds(), review);
@@ -63,7 +65,7 @@ public class ReviewService {
         boolean isOriginContentExist = !review.getContent().isBlank();
 
         if (reviewUpdateRequestDTO.getPhotoIds().size() == 0 && reviewUpdateRequestDTO.getContent().isBlank()) {
-            throw new IllegalReviewUpdateException("내용과 사진 모두 없는 상태로 리뷰를 수정할 수 없습니다.");
+            throw new IllegalReviewException("내용과 사진 모두 없는 상태로 리뷰를 수정할 수 없습니다.");
         }
         review.updateReview(reviewUpdateRequestDTO);
 
