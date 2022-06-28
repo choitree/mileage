@@ -1,4 +1,4 @@
-package com.triple.mileage.repository;
+package com.triple.mileage.repository.pointLog;
 
 import com.triple.mileage.domain.PointLog;
 import org.springframework.data.jpa.repository.JpaRepository;
