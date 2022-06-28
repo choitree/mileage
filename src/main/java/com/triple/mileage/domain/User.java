@@ -34,4 +34,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<PointLog> pointLogs = new ArrayList<>();
 
+    public void updateUserPoint(int point) {
+        this.point = point;
+    }
+
 }
