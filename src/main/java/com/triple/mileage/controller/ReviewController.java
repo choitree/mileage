@@ -1,10 +1,12 @@
 package com.triple.mileage.controller;
 
 import com.triple.mileage.dto.ResponseDTO;
+import com.triple.mileage.dto.ReviewRequestDTO;
 import com.triple.mileage.service.ReviewService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ReviewController {
@@ -15,9 +17,9 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @PostMapping("event")
-    public ResponseEntity<ResponseDTO> createReview() {
-        reviewService.createReview();
+    @PostMapping("/events")
+    public ResponseEntity<ResponseDTO> createReview(@RequestBody ReviewRequestDTO reviewRequestDTO) {
+        reviewService.createReview(reviewRequestDTO);
         return ResponseEntity.ok(new ResponseDTO("OK"));
     }
 }
