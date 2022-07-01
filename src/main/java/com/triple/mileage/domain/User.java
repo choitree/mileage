@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -18,14 +20,13 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(columnDefinition = "VARCHAR(36)", name = "user_id")
+    @Type(type = "uuid-char")
+    private UUID userId;
 
-    @Column(unique = true, name = "userId")
-    private String userId;
     private String name;
 
-//    private int point;
+    private int point;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
@@ -33,4 +34,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<PointLog> pointLogs = new ArrayList<>();
 
+    public void updateUserPoint(int point) {
+        this.point = point;
+    }
 }

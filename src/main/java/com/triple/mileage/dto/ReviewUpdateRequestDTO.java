@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReviewRequestDTO {
+public class ReviewUpdateRequestDTO {
 
     private String type;
     private String action;
@@ -22,7 +22,4 @@ public class ReviewRequestDTO {
 
     @JsonProperty("attachedPhotoIds")
     private List<UUID> photoIds;
-
-    private UUID userId;
-    private UUID placeId;
 }

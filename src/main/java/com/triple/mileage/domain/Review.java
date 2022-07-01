@@ -2,39 +2,48 @@ package com.triple.mileage.domain;
 
 
 import com.triple.mileage.dto.ReviewRequestDTO;
+import com.triple.mileage.dto.ReviewUpdateRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "review", uniqueConstraints = {@UniqueConstraint(name = "uniqueUserAndPlace", columnNames = {"user_id", "place_id"})})
+@Table(name = "review",
+        uniqueConstraints =
+                {@UniqueConstraint(
+                        name = "uniqueUserAndPlace",
+                        columnNames = {"user_id", "place_id"})
+                }
+)
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(columnDefinition = "VARCHAR(36)", name = "review_id")
+    @Type(type = "uuid-char")
+    private UUID reviewId;
 
-    private String reviewId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", referencedColumnName = "id")
+    @JoinColumn(name = "place_id", referencedColumnName = "place_id")
     private Place place;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,4 +69,8 @@ public class Review {
                 .build();
     }
 
+    public void updateReview(ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+        this.content = reviewUpdateRequestDTO.getContent();
+        this.modifiedAt = LocalDateTime.now();
+    }
 }

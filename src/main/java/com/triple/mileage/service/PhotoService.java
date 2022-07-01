@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PhotoService {
@@ -19,12 +20,17 @@ public class PhotoService {
     }
 
     @Transactional
-    public void convertAndSaveAllPhotos(List<String> fileNames, Review review) {
+    public void convertAndSaveAllPhotosByReview(List<UUID> fileNames, Review review) {
         List<Photo> photos = new ArrayList<>();
-        for (String fileName : fileNames) {
+        for (UUID fileName : fileNames) {
             Photo photo = new Photo(fileName, review);
             photos.add(photo);
         }
         photoRepository.saveAll(photos);
+    }
+
+    @Transactional
+    public void deleteAllPhotoByReview(Review review) {
+        photoRepository.deleteAllByReview(review);
     }
 }
