@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "point_log")
+@Table(name = "point_log",
+        indexes = @Index(name = "idx_point_log", columnList = "user_id"))
 public class PointLog {
 
     @Id
@@ -29,7 +30,10 @@ public class PointLog {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", referencedColumnName = "review_id")
+    @JoinColumns({
+            @JoinColumn(name = "review_id", referencedColumnName = "review_id"),
+            @JoinColumn(name = "event_type", referencedColumnName = "event_type")
+    })
     private Review review;
 
     public PointLog(LocalDateTime createdAt, String info, int point, User user, Review review) {

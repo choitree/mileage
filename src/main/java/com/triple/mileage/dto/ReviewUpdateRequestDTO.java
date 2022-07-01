@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
@@ -17,9 +16,9 @@ public class ReviewUpdateRequestDTO {
 
     private String type;
     private String action;
-    private UUID reviewId;
+    private String reviewId;
     private String content;
 
     @JsonProperty("attachedPhotoIds")
-    private List<UUID> photoIds;
+    private List<String> photoIds;
 }
