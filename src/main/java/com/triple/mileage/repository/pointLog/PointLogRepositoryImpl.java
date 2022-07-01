@@ -21,7 +21,7 @@ public class PointLogRepositoryImpl implements PointLogRepositoryCustom {
 
     public void updatePointLogReviewToNull(Review review) {
         queryFactory.update(QPointLog.pointLog)
-                .setNull(QPointLog.pointLog.review)
+                .setNull(QPointLog.pointLog.review.reviewId)
                 .where(QPointLog.pointLog.review.eq(review))
                 .execute();
     }
