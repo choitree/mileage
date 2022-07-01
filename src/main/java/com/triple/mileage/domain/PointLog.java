@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "point_log")
+@Table(name = "point_log",
+        indexes = @Index(name = "idx_point_log", columnList = "user_id"))
 public class PointLog {
 
     @Id
