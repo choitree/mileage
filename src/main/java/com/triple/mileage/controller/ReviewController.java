@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 public class ReviewController {
 
@@ -32,7 +30,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> deleteReview(@RequestParam UUID reviewId, String action) {
+    public ResponseEntity<ResponseDTO> deleteReview(@RequestParam String reviewId, String action) {
         reviewService.deleteReview(reviewId, action);
 
         return ResponseEntity.ok(new ResponseDTO("OK"));

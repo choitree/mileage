@@ -30,9 +30,8 @@ import java.util.UUID;
 public class Review {
 
     @Id
-    @Column(columnDefinition = "VARCHAR(36)", name = "review_id")
-    @Type(type = "uuid-char")
-    private UUID reviewId;
+    @Column(name = "review_id", columnDefinition = "char(36)")
+    private String reviewId;
 
     private String content;
     private LocalDateTime createdAt;

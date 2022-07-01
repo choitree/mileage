@@ -76,7 +76,7 @@ public class ReviewService {
         pointLogService.saveUpdateReviewPointLog(user, review, isOriginContentExist, originPhotoCount, reviewUpdateRequestDTO.getPhotoIds().size(), "리뷰수정");
     }
 
-    public void deleteReview(UUID reviewId, String action) {
+    public void deleteReview(String reviewId, String action) {
         if (!action.equals(Action.DELETE.name())) {
             throw new WrongActionException("리뷰 삭제의 경우, DELETE action입니다.");
         }
