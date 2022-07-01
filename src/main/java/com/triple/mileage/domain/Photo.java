@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Getter
 @Builder
@@ -24,8 +22,11 @@ public class Photo {
     @Column(columnDefinition = "char(36)")
     private String fileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", referencedColumnName = "review_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumns({
+            @JoinColumn(name = "review_id", referencedColumnName = "review_id"),
+            @JoinColumn(name = "event_type", referencedColumnName = "event_type")
+    })
     private Review review;
 
     public Photo(String fileName, Review review) {
