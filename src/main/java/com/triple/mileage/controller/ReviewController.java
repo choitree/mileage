@@ -4,18 +4,16 @@ import com.triple.mileage.dto.ResponseDTO;
 import com.triple.mileage.dto.ReviewRequestDTO;
 import com.triple.mileage.dto.ReviewUpdateRequestDTO;
 import com.triple.mileage.service.ReviewService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 public class ReviewController {
 
     private final ReviewService reviewService;
-
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
 
     @PostMapping("/events")
     public ResponseEntity<ResponseDTO> createReview(@RequestBody ReviewRequestDTO reviewRequestDTO) {

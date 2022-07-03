@@ -7,11 +7,13 @@ import com.triple.mileage.exception.IllegalReviewException;
 import com.triple.mileage.exception.ReviewNotFoundException;
 import com.triple.mileage.exception.WrongActionException;
 import com.triple.mileage.repository.ReviewRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
@@ -19,15 +21,6 @@ public class ReviewService {
     private final PlaceService placeService;
     private final PhotoService photoService;
     private final PointLogService pointLogService;
-
-    public ReviewService(ReviewRepository reviewRepository, UserService userService,
-                         PlaceService placeService, PhotoService photoService, PointLogService pointLogService) {
-        this.reviewRepository = reviewRepository;
-        this.userService = userService;
-        this.placeService = placeService;
-        this.photoService = photoService;
-        this.pointLogService = pointLogService;
-    }
 
     @Transactional
     public void createReview(ReviewRequestDTO reviewRequestDTO) {

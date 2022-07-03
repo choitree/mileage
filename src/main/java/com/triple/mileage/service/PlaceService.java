@@ -3,16 +3,14 @@ package com.triple.mileage.service;
 import com.triple.mileage.domain.Place;
 import com.triple.mileage.exception.PlaceNotFoundException;
 import com.triple.mileage.repository.PlaceRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PlaceService {
 
     private final PlaceRepository placeRepository;
-
-    public PlaceService(PlaceRepository placeRepository) {
-        this.placeRepository = placeRepository;
-    }
 
     public Place findByPlaceId(String placeId) {
         return placeRepository.findByPlaceId(placeId)
