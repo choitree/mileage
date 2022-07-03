@@ -3,23 +3,25 @@ package com.triple.mileage.service;
 import com.triple.mileage.domain.PointLog;
 import com.triple.mileage.domain.Review;
 import com.triple.mileage.domain.User;
+import com.triple.mileage.dto.PointLogResponseDTO;
+import com.triple.mileage.exception.UserNotFoundException;
 import com.triple.mileage.repository.UserRepository;
 import com.triple.mileage.repository.pointLog.PointLogRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PointLogService {
 
     private final PointLogRepository pointLogRepository;
     private final UserRepository userRepository;
-
-    public PointLogService(PointLogRepository pointLogRepository, UserRepository userRepository) {
-        this.pointLogRepository = pointLogRepository;
-        this.userRepository = userRepository;
-    }
 
     @Transactional
     public void saveCreateReviewPointLog(User user, Review review, int photoSize, int samePlaceReviewCount, String info) {
@@ -78,5 +80,16 @@ public class PointLogService {
         user.updateUserPoint(user.getPoint() - pointsSum);
         pointLogRepository.save(pointLog);
         userRepository.save(user);
+    }
+
+    public PointLogResponseDTO showPointLog(Long id) {
+        return PointLogResponseDTO.from(pointLogRepository.findById(id).orElseThrow(() -> new NoSuchElementException()));
+    }
+
+    public List<PointLogResponseDTO> showAllPointLogsByUser(String userId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException());
+        return pointLogRepository.findAllByUser(user).stream()
+                .map(pointLog -> showPointLog(pointLog.getId()))
+                .collect(Collectors.toList());
     }
 }
