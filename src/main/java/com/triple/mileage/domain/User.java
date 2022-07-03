@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,10 @@ public class User {
     @Column(name = "user_id", columnDefinition = "char(36)")
     private String userId;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private int point;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

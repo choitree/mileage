@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +28,21 @@ public class Review extends Event {
     @Column(name = "review_id", columnDefinition = "char(36)")
     private String reviewId;
 
+    @NotNull
     private String content;
+    @NotNull
     private LocalDateTime createdAt;
+    @NotNull
     private LocalDateTime modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id",
+            foreignKey = @ForeignKey(name = "fk_review_user_user_id"))
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", referencedColumnName = "place_id")
+    @JoinColumn(name = "place_id", referencedColumnName = "place_id",
+            foreignKey = @ForeignKey(name = "fk_review_place_place_id"))
     private Place place;
 
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)

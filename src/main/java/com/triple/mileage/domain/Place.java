@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,9 @@ public class Place {
     @Column(name = "place_id", columnDefinition = "char(36)")
     private String placeId;
 
+    @NotNull
     private String address;
+    @NotNull
     private String coordinates;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
